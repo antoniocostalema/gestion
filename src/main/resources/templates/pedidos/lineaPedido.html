@@ -1,0 +1,26 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <title>Formulario Línea de Pedido</title>
+</head>
+<body>
+<h1 th:text="${linea.id == null} ? 'Nueva Línea de Pedido' : 'Editar Línea de Pedido'"></h1>
+
+<form th:action="@{/pedido-articulos/guardar}" th:object="${linea}" method="post">
+    <input type="hidden" th:field="*{id}" />
+    <input type="hidden" th:field="*{pedido.id}" />
+
+    <label>Artículo:</label>
+    <select th:field="*{articulo.id}">
+        <option th:each="articulo : ${articulos}" th:value="${articulo.id}" th:text="${articulo.nombre}"></option>
+    </select><br/>
+
+    <label>Cantidad:</label>
+    <input type="number" th:field="*{cantidad}" min="1" /><br/>
+
+    <button type="submit">Guardar</button>
+</form>
+
+<a th:href="@{'/pedidos/' + ${linea.pedido.id}}">Volver al Pedido</a>
+</body>
+</html>

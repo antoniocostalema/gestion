@@ -1,0 +1,20 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <title>Formulario de Pedido</title>
+</head>
+<body>
+<h1 th:text="${pedido.id == null} ? 'Nuevo Pedido' : 'Editar Pedido'"></h1>
+<form th:action="@{/pedidos/guardar}" th:object="${pedido}" method="post">
+    <input type="hidden" th:field="*{id}" />
+    <label>Fecha:</label>
+    <input type="date" th:field="*{fecha}" /><br/>
+    <label>Cliente:</label>
+    <select th:field="*{cliente.id}">
+        <option th:each="cliente : ${clientes}" th:value="${cliente.id}" th:text="${cliente.nombre}"></option>
+    </select><br/>
+    <button type="submit">Guardar</button>
+</form>
+<a th:href="@{/pedidos}">Volver</a>
+</body>
+</html>
